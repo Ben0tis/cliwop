@@ -2,8 +2,8 @@ import sys
 import os, platform
 
 #initialise in-memory data for exercises and workouts
-exercises = [{}]
-workouts = [{}]
+exercises = []
+workouts = []
 #probably a good idea to implement JSON file later down the line for persistence
 
 def main():
@@ -14,34 +14,36 @@ def main():
             match choice:
                 case 1:
                     clear_terminal()
-                    print("Add exercise\n")
+                    add_exercise()
+                    print()
+                    print(exercises)
                 case 2:
                     clear_terminal()
-                    print("Edit exercise\n")
+                    print("Edit exercise")
                 case 3:
                     clear_terminal()
-                    print("Remove exercise\n")
+                    print("Remove exercise")
                 case 4:
                     clear_terminal()
-                    print("Add workout\n")
+                    print("Add workout")
                 case 5:
                     clear_terminal()
-                    print("View workouts\n")
+                    print("View workouts")
                 case 6:
                     clear_terminal()
-                    print("Remove workout\n")
+                    print("Remove workout")
                 case 7:
                     clear_terminal()
                     sys.exit("Thank you for using CLIWOP\n")
                 case _:
                     clear_terminal()
-                    print("Invalid choice\n")
+                    print("Invalid choice")
         except ValueError:
             pass
 
 def get_choice():
     #Display list of actions, then ask for a choice from the user
-    print("Welcome to CLIWOP - Please choose an action\n")
+    print("\nWelcome to CLIWOP - Please choose an action\n")
     print("1. Add an exercise")
     print("2. Edit and exercise")
     print("3. Remove an exercise")
@@ -53,7 +55,14 @@ def get_choice():
 
 def add_exercise():
     #Add a new exercise to the list, then specify the name and muscle group
-    ...
+    exercise_name = input("Exercise name: ")
+    exercise_group = input("Muscle group worked: ")
+    exercise = {
+        "name": exercise_name,
+        "group": exercise_group
+    }
+    exercises.append(exercise)
+    print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list")
 
 def edit_exercise():
     #Edit an existing exercise in the list
