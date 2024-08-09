@@ -25,7 +25,9 @@ def main():
                     print("Remove exercise")
                 case 4:
                     clear_terminal()
-                    print("Add workout")
+                    add_workout()
+                    print()
+                    print(workouts)
                 case 5:
                     clear_terminal()
                     print("View workouts")
@@ -35,10 +37,9 @@ def main():
                 case 7:
                     clear_terminal()
                     sys.exit("Thank you for using CLIWOP\n")
-                case _:
-                    clear_terminal()
-                    print("Invalid choice")
         except ValueError:
+            clear_terminal()
+            print("Invalid input\n\nPlease choose an action from the provided list")
             pass
 
 def get_choice():
@@ -74,7 +75,43 @@ def remove_exercise():
 
 def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
-    ...
+    program = []
+    if not exercises:
+        print("Please add exercises before creating a workout")
+    else:
+        while True:
+            print("Exercise list:\n")
+            for exercise in exercises:
+                print(f"{exercise["name"]} ({exercise["group"]})")
+            print("\nEnter 'Stop' to stop adding exercises")
+            try:
+                workout_exercise = input("\nExercise to add to workout: ")
+                if workout_exercise == "Stop":
+                    clear_terminal()
+                    break #Exit the loop when "Stop" is entered
+                else:
+                    workout_reps = input("Ammount of repitions to perform: ")
+                    if workout_reps == "Stop":
+                        clear_terminal()
+                        break #Exit the loop when "Stop" is entered
+                    else:
+                        workout_sets = input("How many sets for this exercise?: ")
+                        if workout_sets == "Stop":
+                            clear_terminal()
+                            break #Exit the loop when "Stop" is entered
+                        else:
+                            workout = {
+                                "exercise": workout_exercise,
+                                "reps": workout_reps,
+                                "sets": workout_sets
+                            }
+                            program.append(workout)
+                            clear_terminal()
+            except Exception as e:
+                print(f"An error occured: {e}")
+                break
+        if program:
+            workouts.append(program)
 
 def view_workout():
     #Display the workout programs in the list, then choose one to display detailed information
