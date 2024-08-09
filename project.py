@@ -41,7 +41,7 @@ def main():
 
 def get_choice():
     #Display list of actions, then ask for a choice from the user
-    print("Welcome to CLIWOP - Please choose and action")
+    print("Welcome to CLIWOP - Please choose an action\n")
     print("1. Add an exercise")
     print("2. Edit and exercise")
     print("3. Remove an exercise")
@@ -49,7 +49,7 @@ def get_choice():
     print("5. View workouts")
     print("6. Remove a workout")
     print("7. Exit CLIWOP")
-    return int(input("Choice: "))
+    return int(input("\nChoice: "))
 
 def add_exercise():
     #Add a new exercise to the list, then specify the name and muscle group
