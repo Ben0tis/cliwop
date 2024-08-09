@@ -1,26 +1,43 @@
+import sys
+import os, platform
+
 #initialise in-memory data for exercises and workouts
 exercises = [{}]
 workouts = [{}]
 #probably a good idea to implement JSON file later down the line for persistence
 
 def main():
-    #Placeholder match/case for testing
-    choice = get_choice()
-    match choice:
-        case 1:
-            print("Add exercise")
-        case 2:
-            print("Edit exercise")
-        case 3:
-            print("Remove exercise")
-        case 4:
-            print("Add workout")
-        case 5:
-            print("View workouts")
-        case 6:
-            print("Remove workout")
-        case _:
-            print("Invalid choice")
+    #ask user for an action, perform said action and loop until the program is stopped
+    while True:
+        try:
+            choice = get_choice()
+            match choice:
+                case 1:
+                    clear_terminal()
+                    print("Add exercise\n")
+                case 2:
+                    clear_terminal()
+                    print("Edit exercise\n")
+                case 3:
+                    clear_terminal()
+                    print("Remove exercise\n")
+                case 4:
+                    clear_terminal()
+                    print("Add workout\n")
+                case 5:
+                    clear_terminal()
+                    print("View workouts\n")
+                case 6:
+                    clear_terminal()
+                    print("Remove workout\n")
+                case 7:
+                    clear_terminal()
+                    sys.exit("Thank you for using CLIWOP\n")
+                case _:
+                    clear_terminal()
+                    print("Invalid choice\n")
+        except ValueError:
+            pass
 
 def get_choice():
     #Display list of actions, then ask for a choice from the user
@@ -31,6 +48,7 @@ def get_choice():
     print("4. Add a workout")
     print("5. View workouts")
     print("6. Remove a workout")
+    print("7. Exit CLIWOP")
     return int(input("Choice: "))
 
 def add_exercise():
@@ -56,6 +74,13 @@ def view_workout():
 def remove_workout():
     #Delete a workout from the list
     ...
+
+def clear_terminal():
+    #Clear terminal using the approriate function depending on windows vs unix/macOS
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 if __name__ == "__main__":
     main()
