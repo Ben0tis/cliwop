@@ -13,9 +13,9 @@ The **CLI Workout Planner** is a command-line application that allows users to m
 - **Add Exercise**: Add new exercises to your exercise database, specifying the name and muscle group worked.
 - **Edit Exercise**: Modify existing exercises in your database.
 - **Remove Exercise**: Delete exercises that you no longer need.
-- **Create Workout**: Build a workout program by selecting exercises from the database and arranging them in order.
+- **Add Workout**: Build a workout program by selecting exercises from the database, specifying the ammount of reps and sets.
 - **View Workout**: Display the workout programs you have created.
-- **Delete Workout**: Delete workouts that you no longer need.
+- **Remove Workout**: Delete workouts that you no longer need.
 
 ## Usage
 
