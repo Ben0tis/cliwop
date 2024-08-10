@@ -18,7 +18,7 @@ try:
     with open("data/workouts.json", mode="r", encoding="utf-8") as read_wo:
         #if json is not empty, read file
         workouts = json.load(read_wo)
-#if json is empty, initialize excercises as a regular list
+#if json is empty, initialize excercises as a regular dict
 except Exception:
     workouts = {}
 
@@ -42,8 +42,7 @@ def main():
                     add_workout()
                 case 5:
                     clear_terminal()
-                    #placeholder output
-                    print("View workouts")
+                    view_workout()
                 case 6:
                     clear_terminal()
                     #placeholder output
@@ -230,10 +229,15 @@ def get_input(prompt):
 
 def display_exercises():
     #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked***
-    print("\nExercise list:\n")
+    print("Exercise list:\n")
     for exercise in exercises:
         print(f"{exercise["name"]} ({exercise["group"]})")
 
+def display_workouts():
+    #Display list of workouts ***Could implement a way to filter and/org organize***
+    print("Workout list:\n")
+    for workout_name in workouts:
+        print(f"{workout_name}")
 
 if __name__ == "__main__":
     main()
