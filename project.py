@@ -80,7 +80,7 @@ def add_exercise():
     exercises.append(exercise)
     with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
         json.dump(exercises, write_ex)
-    print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list")
+    print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list of exercises")
 
 def edit_exercise():
     #Edit an existing exercise in the list
@@ -134,6 +134,7 @@ def add_workout():
             workouts[workout_name] = workout
             with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
                 json.dump(workouts, write_wo)
+            print(f"\n{workout_name} is added to the list of workouts")
 
 def view_workout():
     #Display the workout programs in the list, then choose one to display detailed information
