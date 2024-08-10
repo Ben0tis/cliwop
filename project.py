@@ -67,7 +67,7 @@ def get_choice():
     print("5. View workouts")
     print("6. Remove a workout")
     print("7. Exit CLIWOP")
-    return int(input("\nChoice: "))
+    return int(get_input("\nChoice: "))
 
 def add_exercise():
     #Add a new exercise to the list, then specify the name and muscle group
@@ -251,6 +251,9 @@ def get_input(prompt):
     response = input(prompt)
     if response=="stop":
         raise UserExit
+    elif response =="exit":
+        clear_terminal()
+        sys.exit("Thank you for using CLIWOP\n")
     return response
 
 def display_exercises():
