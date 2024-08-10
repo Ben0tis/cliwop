@@ -72,6 +72,8 @@ def add_exercise():
         "group": exercise_group
     }
     exercises.append(exercise)
+    with open("data/exercises.json", mode="w", encoding="utf-8") as write_file:
+        json.dump(exercises, write_file)
     print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list")
 
 def edit_exercise():
