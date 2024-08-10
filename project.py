@@ -53,14 +53,15 @@ def main():
                     remove_workout()
                 case 7:
                     clear_terminal()
-                    print(Fore.BLUE + "Thank you for using")
+                    print(Fore.GREEN + "Thank you for using")
                     title("CLIWOP")
                     sys.exit()
                 case _:
                     raise ValueError
         except ValueError:
             clear_terminal()
-            print("Invalid input\n\nPlease choose an action from the provided list")
+            print(Fore.RED + Style.BRIGHT +"Invalid input\n")
+            print(Fore.RED + "Please choose an action from the provided list")
             pass
 
 def get_choice():
@@ -69,17 +70,17 @@ def get_choice():
         [1, "Add an exercise"], [2, "Edit an exercise"], [3, "Remove an exercise"], 
         [4, "Add a workout"], [5, "View workouts"], [6, "Remove workouts"], [7, "Exit CLIWOP"]
         ]
-    print(Fore.BLUE + "\nWelcome to")
+    print(Fore.GREEN + "\nWelcome to")
     title("CLIWOP")
-    print("Please choose an action\n")
-    print(tabulate(table, tablefmt="double_grid"))
-    return int(get_input("\nChoice: "))
+    print(Fore.GREEN + "Please choose an action\n")
+    print(Fore.GREEN + Style.BRIGHT + tabulate(table, tablefmt="double_grid"))
+    return int(get_input(Fore.GREEN + "\nChoice: "))
 
 def add_exercise():
     title("Create exercises\n")
     #Add a new exercise to the list, then specify the name and muscle group
-    exercise_name = get_input("Exercise name: ")
-    exercise_group = get_input("Muscle group worked: ")
+    exercise_name = get_input(Fore.GREEN + "Exercise name: ")
+    exercise_group = get_input(Fore.GREEN + "Muscle group worked: ")
     exercise = {
         "name": exercise_name,
         "group": exercise_group
@@ -88,36 +89,37 @@ def add_exercise():
     exercises.append(exercise)
     save_exercises()
     clear_terminal()
-    print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list of exercises")
+    print(Fore.YELLOW + Style.BRIGHT + f"\n\"{exercise_name}\" ({exercise_group} exercise) is added to the list of exercises")
 
 def edit_exercise():
     #Edit an existing exercise in the list
     #Check if there are exercises in the list first
     if not exercises:
-        print("Please add exercises before trying to edit the list")
+        print(Fore.RED + "Please add exercises before trying to edit the list")
     else:
         #Loop until user inputs "stop"
         while True:
             try:
                 title("Edit exercises\n")
                 display_exercises()
-                print("\nEnter 'stop' to stop editing exercises")
+                print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop editing exercises")
                 #Get input of which exercise needs to be edited
-                to_edit = get_input("\nWhich exercise to edit: ")
+                to_edit = get_input(Fore.GREEN + "\nWhich exercise to edit: ")
                 #If the selected exercise is not in the list, loop
                 if not any(exercise["name"] == to_edit for exercise in exercises):
                     clear_terminal()
-                    print("Invalid exercise, please select an exercise from the list\n")
+                    print(Fore.RED + Style.BRIGHT + "Invalid exercise\n")
+                    print(Fore.RED + "Please select an exercise from the list\n")
                 #If the selected exercise is in the list, continue
                 else:
                     #Get input of what to edit
-                    what_edit = get_input(f"Edit the name or group for {to_edit}?: ")
+                    what_edit = get_input(Fore.GREEN + f"Edit the name or group for {to_edit}?: ")
                     if what_edit == "group":
                         for exercise in exercises:
                             #Only edit the exercise that was selected above
                             if exercise["name"] == to_edit:
                                 #Change group and push to json
-                                exercise["group"] = get_input("New muscle group worked: ")
+                                exercise["group"] = get_input(Fore.GREEN + "New muscle group worked: ")
                                 save_exercises()
                                 clear_terminal()
                     elif what_edit == "name":
@@ -125,13 +127,14 @@ def edit_exercise():
                             #Only edit the exercise that was selected above
                             if exercise["name"] == to_edit:
                                 #Change name and push to json
-                                exercise["name"] = get_input("New name: ")
+                                exercise["name"] = get_input(Fore.GREEN +"New name: ")
                                 save_exercises()
                                 clear_terminal()
                     #If input not 'name' or 'group', display error message and loop
                     else:
                         clear_terminal()
-                        print("Invalid choice, please input 'name' or 'group'\n")
+                        print(Fore.RED + Style.BRIGHT + "Invalid choice\n")
+                        print(Fore.RED + "Please input 'name' or 'group'\n")
             #Exit back to main menu if user inputs "stop"
             except UserExit:
                 clear_terminal()
@@ -142,20 +145,21 @@ def remove_exercise():
     #Delete an existing exercise from the list
     #Check if there are exercises in the list first
     if not exercises:
-        print("Please add exercises before trying to delete one from the list")
+        print(Fore.RED + "Please add exercises before trying to delete one from the list")
     else:
         #Loop until user inputs "stop"
         while True:
             try:
                 title("Remove exercises\n")
                 display_exercises()
-                print("\nEnter 'stop' to stop deleting exercises")
+                print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop deleting exercises")
                 #Get input of which exercise needs to be deleted
-                to_delete = get_input("\nWhich exercise to delete: ")
+                to_delete = get_input(Fore.GREEN + "\nWhich exercise to delete: ")
                 #If the selected exercise is not in the list, loop
                 if not any(exercise["name"] == to_delete for exercise in exercises):
                     clear_terminal()
-                    print("Invalid exercise, please select an exercise from the list\n")
+                    print(Fore.RED + Style.BRIGHT + "Invalid exercise\n")
+                    print(Fore.RED + "Please select an exercise from the list\n")
                 #If the selected exercise is in the list, continue
                 else:
                     for exercise in exercises:
@@ -163,6 +167,7 @@ def remove_exercise():
                         exercises[:] = [exercise for exercise in exercises if exercise["name"] != to_delete]
                         save_exercises()
                         clear_terminal()
+                        print(Fore.YELLOW + Style.BRIGHT + f"\n\"{to_delete}\" has been removed from the list of exercises")
             #Exit back to main menu if user inputs "stop"
             except UserExit:
                 clear_terminal()
@@ -172,7 +177,7 @@ def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
     #Check if there are exercises in the list first ***Could implement a way to check if the exercises added to workout are in list***
     if not exercises:
-        print("Please add exercises before creating a workout")
+        print(Fore.RED + "Please add exercises before creating a workout")
     else:
         title("Create workouts\n")
         workout_name = input("Name of the workout: ")
@@ -180,16 +185,16 @@ def add_workout():
         clear_terminal()
         #Loop until user inputs "stop"
         while True:
-            print("Create workouts\n")
-            print(f"Workout name: {workout_name}")
+            title("Create workouts\n")
+            print(Fore.GREEN + f"Workout name: {workout_name}\n")
             #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
             display_exercises()
-            print("\nEnter 'stop' to stop adding exercises")
+            print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop adding exercises")
             #Get user input for exercise name, reps and sets then add to workout
             try:
-                workout_ex = get_input("\nExercise to add to workout: ")
-                workout_ex_reps = get_input("Ammount of repitions to perform: ")
-                workout_ex_sets = get_input("How many sets for this exercise?: ")
+                workout_ex = get_input(Fore.GREEN + "\nExercise to add to workout: ")
+                workout_ex_reps = get_input(Fore.GREEN + "Ammount of repitions to perform: ")
+                workout_ex_sets = get_input(Fore.GREEN + "How many sets for this exercise?: ")
                 workout_exercise = {
                     "exercise": workout_ex,
                     "reps": workout_ex_reps,
@@ -205,25 +210,25 @@ def add_workout():
         if workout:
             workouts[workout_name] = workout
             save_workouts()
-            print(f"\n{workout_name} is added to the list of workouts")
+            print(Fore.YELLOW + Style.BRIGHT + f"\n{workout_name} is added to the list of workouts")
 
 def view_workout():
     #Display the workout programs in the list, then choose one to display detailed information
     if not workouts:
-        print("Please add workouts before trying to view the list")
+        print(Fore.RED + "Please add workouts before trying to view the list")
     else:
         #Loop until user inputs "stop"
         while True:
             try:
                 title("View workouts\n")
                 display_workouts()
-                print("\nEnter 'stop' to stop viewing workouts")
+                print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop viewing workouts")
                 #Get input of which exercise needs to be edited
-                to_view = get_input("\nWhich workout to view: ")
+                to_view = get_input(Fore.GREEN + "\nWhich workout to view: ")
 
                 if to_view  in workouts:
                     clear_terminal()
-                    print("View workouts\n")
+                    title("View workouts\n")
                     # Prepare data for tabulate
                     workout_data = [
                         [i + 1, exercise["exercise"], exercise["sets"], exercise["reps"]]
@@ -232,13 +237,14 @@ def view_workout():
                     headers = ["#", "Exercise", "Sets", "Reps"]
                     
                     # Display the workout details using tabulate
-                    print(tabulate(workout_data, headers=headers, tablefmt="double_grid"))
+                    print(Fore.GREEN + Style.BRIGHT + tabulate(workout_data, headers=headers, tablefmt="double_grid"))
                         
-                    check_stop = get_input("\nEnter 'stop' to stop viewing workout: ")
+                    check_stop = get_input(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop viewing workout: ")
                 #If input not in workouts list, loop
                 else:
                     clear_terminal()
-                    print("Invalid workout name, please select a workout from the list.\n")
+                    print(Fore.RED + Style.BRIGHT + "Invalid workout name\n")
+                    print(Fore.RED + "Please select a workout from the list\n")
             #Stop loop if user inputs "stop"
             except UserExit:
                 clear_terminal()
@@ -248,26 +254,28 @@ def remove_workout():
     #Delete a workout from the list
     #Check if there are workouts in the list first
     if not workouts:
-        print("Please add workouts before trying to delete one from the list")
+        print(Fore.RED + "Please add workouts before trying to delete one from the list")
     else:
         #Loop until user inputs "stop"
         while True:
             try:
                 title("Remove workouts\n")
                 display_workouts()
-                print("\nEnter 'stop' to stop deleting workouts")
+                print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop deleting workouts")
                 #Get input of which workout needs to be deleted
-                to_delete = get_input("\nWhich workout to delete: ")
+                to_delete = get_input(Fore.GREEN + "\nWhich workout to delete: ")
                 #If the selected workout is not in the list, loop
                 if not any(workout == to_delete for workout in workouts):
                     clear_terminal()
-                    print("Invalid workout, please select a workout from the list\n")
+                    print(Fore.RED + Style.BRIGHT + "Invalid workout\n")
+                    print(Fore.RED + "Please select a workout from the list\n")
                 #If the selected workout is in the list, continue
                 else:
                     #Delete the workout that was selected above
                         del workouts[to_delete]
                         save_workouts()
                         clear_terminal()
+                        print(Fore.YELLOW + Style.BRIGHT + f"\n\"{to_delete}\" has been removed from the list of exercises")
             #Exit back to main menu if user inputs "stop"
             except UserExit:
                 clear_terminal()
@@ -298,7 +306,7 @@ def get_input(prompt):
     #Check if user input is "exit"; if yes, abort program
     elif response =="exit":
         clear_terminal()
-        print(Fore.BLUE + "Thank you for using")
+        print(Fore.GREEN + "Thank you for using")
         title("CLIWOP")
         sys.exit()
     return response
@@ -309,7 +317,7 @@ def display_exercises():
     ex_table = [[exercise["name"], exercise["group"]] for exercise in exercises]
     ex_headers = ["Exercise name", "Muscle Group"]
     #Create and display table
-    print(tabulate(ex_table, ex_headers, tablefmt="double_grid"))
+    print(Fore.GREEN + Style.BRIGHT + tabulate(ex_table, ex_headers, tablefmt="double_grid"))
 
 def display_workouts():
     #Display list of workouts ***Could implement a way to filter and/org organize***
@@ -317,12 +325,12 @@ def display_workouts():
     wo_table = [[workout] for workout in workouts.keys()]
     wo_headers = ["Workout name"]
     #Create and display table
-    print(tabulate(wo_table, wo_headers, tablefmt="double_grid"))
+    print(Fore.GREEN + Style.BRIGHT + tabulate(wo_table, wo_headers, tablefmt="double_grid"))
 
 def title(text):
     f = Figlet(font="standard")
     titled = (f.renderText(text))
-    print(Fore.BLUE + titled, end="")
+    print(Fore.GREEN + Style.BRIGHT + titled, end="")
 
 if __name__ == "__main__":
     main()
