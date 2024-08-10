@@ -77,8 +77,7 @@ def add_exercise():
         "group": exercise_group
     }
     exercises.append(exercise)
-    with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
-        json.dump(exercises, write_ex)
+    save_exercises()
     print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list of exercises")
 
 def edit_exercise():
@@ -100,15 +99,13 @@ def edit_exercise():
                     for exercise in exercises:
                         if exercise["name"] == to_edit:
                             exercise["group"] = input("New muscle group worked: ")
-                            with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
-                                json.dump(exercises, write_ex)
+                            save_exercises()
                             clear_terminal()
                 elif what_edit == "name":
                     for exercise in exercises:
                         if exercise["name"] == to_edit:
                             exercise["name"] = input("New name: ")
-                            with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
-                                json.dump(exercises, write_ex)
+                            save_exercises()
                             clear_terminal()
                 else:
                     clear_terminal()
@@ -161,8 +158,7 @@ def add_workout():
                 break
         if workout:
             workouts[workout_name] = workout
-            with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
-                json.dump(workouts, write_wo)
+            save_workouts()
             print(f"\n{workout_name} is added to the list of workouts")
 
 def view_workout():
@@ -179,6 +175,15 @@ def clear_terminal():
         os.system("cls")
     else:
         os.system("clear")
+
+def save_exercises():
+    with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
+        json.dump(exercises, write_ex)
+
+def save_workouts():
+    with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
+        json.dump(workouts, write_wo)
+
 
 if __name__ == "__main__":
     main()
