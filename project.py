@@ -2,6 +2,9 @@ import sys
 import os, platform
 import json
 
+class UserExit(BaseException):
+        pass
+
 #check if json is empty
 try:
     with open("data/exercises.json", mode="r", encoding="utf-8") as read_ex:
@@ -131,30 +134,18 @@ def add_workout():
                 print(f"{exercise["name"]} ({exercise["group"]})")
             print("\nEnter 'stop' to stop adding exercises")
             try:
-                workout_ex = input("\nExercise to add to workout: ")
-                if workout_ex == "stop":
-                    clear_terminal()
-                    break #Exit the loop when stop" is entered
-                else:
-                    workout_ex_reps = input("Ammount of repitions to perform: ")
-                    if workout_ex_reps == "stop":
-                        clear_terminal()
-                        break #Exit the loop when "stop" is entered
-                    else:
-                        workout_ex_sets = input("How many sets for this exercise?: ")
-                        if workout_ex_sets == "stop":
-                            clear_terminal()
-                            break #Exit the loop when "stop" is entered
-                        else:
-                            workout_exercise = {
-                                "exercise": workout_ex,
-                                "reps": workout_ex_reps,
-                                "sets": workout_ex_sets
-                            }
-                            workout.append(workout_exercise)
-                            clear_terminal()
-            except Exception as e:
-                print(f"An error occured: {e}")
+                workout_ex = get_input("\nExercise to add to workout: ")
+                workout_ex_reps = get_input("Ammount of repitions to perform: ")
+                workout_ex_sets = get_input("How many sets for this exercise?: ")
+                workout_exercise = {
+                    "exercise": workout_ex,
+                    "reps": workout_ex_reps,
+                    "sets": workout_ex_sets
+                    }
+                workout.append(workout_exercise)
+                clear_terminal()
+            except UserExit:
+                clear_terminal()
                 break
         if workout:
             workouts[workout_name] = workout
@@ -183,6 +174,12 @@ def save_exercises():
 def save_workouts():
     with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
         json.dump(workouts, write_wo)
+
+def get_input(prompt):
+    response = input(prompt)
+    if response=="stop":
+        raise UserExit
+    return response
 
 
 if __name__ == "__main__":
