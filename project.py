@@ -182,7 +182,7 @@ def remove_exercise():
 
 def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
-    #Check if there are exercises in the list first ***Could implement a way to check if the exercises added to workout are in list***
+    #Check if there are exercises in the list first
     if not exercises:
         print(Fore.RED + "Please add exercises before creating a workout")
     else:
@@ -194,7 +194,7 @@ def add_workout():
         while True:
             title("Create workouts\n")
             print(Fore.GREEN + f"Workout name: {workout_name}\n")
-            #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
+            #Display list of exercises
             display_exercises()
             print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop adding exercises")
             #Get user input for exercise name, reps and sets then add to workout
