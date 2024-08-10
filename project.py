@@ -251,6 +251,7 @@ def get_input(prompt):
     response = input(prompt)
     if response=="stop":
         raise UserExit
+    #Check if user input is "exit"; if yes, abort program
     elif response =="exit":
         clear_terminal()
         sys.exit("Thank you for using CLIWOP\n")
