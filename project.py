@@ -211,6 +211,7 @@ def view_workout():
                 if to_view in workouts:
                     clear_terminal()
                     print(f"\nYou are viewing {to_view}")
+                    #Loop over exercises in the selected workout, then display workout information with formatted string
                     for i, exercise in enumerate(workouts[to_view]):
                         print(f"\nExercise #{i+1}: {exercise["exercise"]} for {exercise["sets"]} sets of {exercise["reps"]} reps")
                         
