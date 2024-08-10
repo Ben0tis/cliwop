@@ -37,6 +37,8 @@ def main():
                 case 7:
                     clear_terminal()
                     sys.exit("Thank you for using CLIWOP\n")
+                case _:
+                    raise ValueError
         except ValueError:
             clear_terminal()
             print("Invalid input\n\nPlease choose an action from the provided list")
