@@ -1,5 +1,6 @@
 import sys
 import os, platform
+import json
 
 #initialise in-memory data for exercises and workouts
 exercises = []
@@ -15,24 +16,30 @@ def main():
                 case 1:
                     clear_terminal()
                     add_exercise()
+                    # check if input worked - to remove
                     print()
                     print(exercises)
                 case 2:
                     clear_terminal()
+                    #placeholder output
                     print("Edit exercise")
                 case 3:
                     clear_terminal()
+                    #placeholder output
                     print("Remove exercise")
                 case 4:
                     clear_terminal()
                     add_workout()
+                    #check if input worked - to remove
                     print()
                     print(workouts)
                 case 5:
                     clear_terminal()
+                    #placeholder output
                     print("View workouts")
                 case 6:
                     clear_terminal()
+                    #placeholder output
                     print("Remove workout")
                 case 7:
                     clear_terminal()
