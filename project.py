@@ -68,6 +68,7 @@ def get_choice():
     return int(get_input("\nChoice: "))
 
 def add_exercise():
+    print("Create exercises\n")
     #Add a new exercise to the list, then specify the name and muscle group
     exercise_name = input("Exercise name: ")
     exercise_group = input("Muscle group worked: ")
@@ -78,6 +79,7 @@ def add_exercise():
     #Add input to exercise and push to json file
     exercises.append(exercise)
     save_exercises()
+    clear_terminal()
     print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list of exercises")
 
 def edit_exercise():
@@ -89,6 +91,7 @@ def edit_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
+                print("Edit exercises\n")
                 display_exercises()
                 print("\nEnter 'stop' to stop editing exercises")
                 #Get input of which exercise needs to be edited
@@ -136,6 +139,7 @@ def remove_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
+                print("Remove exercises\n")
                 display_exercises()
                 print("\nEnter 'stop' to stop deleting exercises")
                 #Get input of which exercise needs to be deleted
@@ -162,11 +166,13 @@ def add_workout():
     if not exercises:
         print("Please add exercises before creating a workout")
     else:
+        print("Create workouts\n")
         workout_name = input("Name of the workout: ")
         workout = []
         clear_terminal()
         #Loop until user inputs "stop"
         while True:
+            print("Create workouts\n")
             print(f"Workout name: {workout_name}")
             #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
             display_exercises()
@@ -201,6 +207,7 @@ def view_workout():
         #Loop until user inputs "stop"
         while True:
             try:
+                print("View workouts\n")
                 display_workouts()
                 print("\nEnter 'stop' to stop viewing workouts")
                 #Get input of which exercise needs to be edited
@@ -232,6 +239,7 @@ def remove_workout():
         #Loop until user inputs "stop"
         while True:
             try:
+                print("Remove workouts\n")
                 display_workouts()
                 print("\nEnter 'stop' to stop deleting workouts")
                 #Get input of which workout needs to be deleted
