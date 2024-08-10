@@ -3,7 +3,7 @@ import os, platform
 import json
 
 class UserExit(BaseException):
-        pass
+    pass
 
 #check if json is empty
 try:
@@ -89,30 +89,35 @@ def edit_exercise():
         print("Please add exercises before trying to edit the list")
     else:
         while True:
-            print("Exercise list:\n")
-            for exercise in exercises:
-                print(f"{exercise["name"]} ({exercise["group"]})")
-            to_edit = input("\nWhich exercise to edit: ")
-            if not any(exercise["name"] == to_edit for exercise in exercises):
-                clear_terminal()
-                print("Invalid exercise, please select an exercise from the list\n")
-            else:
-                what_edit = input(f"Edit the name or group for {to_edit}?: ")
-                if what_edit == "group":
-                    for exercise in exercises:
-                        if exercise["name"] == to_edit:
-                            exercise["group"] = input("New muscle group worked: ")
-                            save_exercises()
-                            clear_terminal()
-                elif what_edit == "name":
-                    for exercise in exercises:
-                        if exercise["name"] == to_edit:
-                            exercise["name"] = input("New name: ")
-                            save_exercises()
-                            clear_terminal()
-                else:
+            try:
+                print("Exercise list:\n")
+                for exercise in exercises:
+                    print(f"{exercise["name"]} ({exercise["group"]})")
+                print("\nEnter 'stop' to stop editing exercises")
+                to_edit = get_input("\nWhich exercise to edit: ")
+                if not any(exercise["name"] == to_edit for exercise in exercises):
                     clear_terminal()
-                    print("Invalid choice, please input 'name' or 'group'\n")
+                    print("Invalid exercise, please select an exercise from the list\n")
+                else:
+                    what_edit = get_input(f"Edit the name or group for {to_edit}?: ")
+                    if what_edit == "group":
+                        for exercise in exercises:
+                            if exercise["name"] == to_edit:
+                                exercise["group"] = get_input("New muscle group worked: ")
+                                save_exercises()
+                                clear_terminal()
+                    elif what_edit == "name":
+                        for exercise in exercises:
+                            if exercise["name"] == to_edit:
+                                exercise["name"] = get_input("New name: ")
+                                save_exercises()
+                                clear_terminal()
+                    else:
+                        clear_terminal()
+                        print("Invalid choice, please input 'name' or 'group'\n")
+            except UserExit:
+                clear_terminal()
+                break
                 
 
 def remove_exercise():
