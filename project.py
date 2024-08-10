@@ -197,7 +197,32 @@ def add_workout():
 
 def view_workout():
     #Display the workout programs in the list, then choose one to display detailed information
-    ...
+    if not workouts:
+        print("Please add workouts before trying to view the list")
+    else:
+        #Loop until user inputs "stop"
+        while True:
+            try:
+                display_workouts()
+                print("\nEnter 'stop' to stop viewing workouts")
+                #Get input of which exercise needs to be edited
+                to_view = get_input("\nWhich workout to view: ")
+                #Check if input is part of the workouts list
+                if to_view in workouts:
+                    clear_terminal()
+                    print(f"\nYou are viewing {to_view}")
+                    for i, exercise in enumerate(workouts[to_view]):
+                        print(f"\nExercise #{i+1}: {exercise["exercise"]} for {exercise["sets"]} sets of {exercise["reps"]} reps")
+                        
+                    check_stop = get_input("\nEnter 'stop' to stop viewing workout: ")
+                #If input not in workouts list, loop
+                else:
+                    clear_terminal()
+                    print("Invalid workout name, please select a workout from the list.\n")
+            #Stop loop if user inputs "stop"
+            except UserExit:
+                clear_terminal()
+                break
 
 def remove_workout():
     #Delete a workout from the list
