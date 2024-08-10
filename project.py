@@ -17,7 +17,7 @@ try:
         workouts = json.load(read_wo)
 #if json is empty, initialize excercises as a regular list
 except Exception:
-    workouts = []
+    workouts = {}
 
 def main():
     #ask user for an action, perform said action and loop until the program is stopped
@@ -98,12 +98,15 @@ def remove_exercise():
 
 def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
-    workout = []
     if not exercises:
         print("Please add exercises before creating a workout")
     else:
+        workout_name = input("Name of the workout: ")
+        workout = []
+        clear_terminal()
         while True:
-            print("Exercise list:\n")
+            print(f"Workout name: {workout_name}")
+            print("\nExercise list:\n")
             for exercise in exercises:
                 print(f"{exercise["name"]} ({exercise["group"]})")
             print("\nEnter 'stop' to stop adding exercises")
@@ -134,7 +137,7 @@ def add_workout():
                 print(f"An error occured: {e}")
                 break
         if workout:
-            workouts.append(workout)
+            workouts[workout_name] = workout
             with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
                 json.dump(workouts, write_wo)
 
