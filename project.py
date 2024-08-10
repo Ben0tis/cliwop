@@ -77,19 +77,26 @@ def get_choice():
     return int(get_input(Fore.GREEN + "\nChoice: "))
 
 def add_exercise():
-    title("Create exercises\n")
-    #Add a new exercise to the list, then specify the name and muscle group
-    exercise_name = get_input(Fore.GREEN + "Exercise name: ")
-    exercise_group = get_input(Fore.GREEN + "Muscle group worked: ")
-    exercise = {
-        "name": exercise_name,
-        "group": exercise_group
-    }
-    #Add input to exercise and push to json file
-    exercises.append(exercise)
-    save_exercises()
-    clear_terminal()
-    print(Fore.YELLOW + Style.BRIGHT + f"\n\"{exercise_name}\" ({exercise_group} exercise) is added to the list of exercises")
+    #Loop until user inputs "stop"
+    while True:
+        try:
+            title("Create exercises\n")
+            print(Fore.GREEN + Style.DIM + "\nEnter 'stop' to stop editing exercises\n")
+            #Add a new exercise to the list, then specify the name and muscle group
+            exercise_name = get_input(Fore.GREEN + "Exercise name: ")
+            exercise_group = get_input(Fore.GREEN + "Muscle group worked: ")
+            exercise = {
+                "name": exercise_name,
+                "group": exercise_group
+            }
+            #Add input to exercise and push to json file
+            exercises.append(exercise)
+            save_exercises()
+            clear_terminal()
+            print(Fore.YELLOW + Style.BRIGHT + f"\n\"{exercise_name}\" ({exercise_group} exercise) is added to the list of exercises")
+        except UserExit:
+            clear_terminal()
+            break
 
 def edit_exercise():
     #Edit an existing exercise in the list
