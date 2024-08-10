@@ -93,10 +93,7 @@ def edit_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
-                #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
-                print("Exercise list:\n")
-                for exercise in exercises:
-                    print(f"{exercise["name"]} ({exercise["group"]})")
+                display_exercises()
                 print("\nEnter 'stop' to stop editing exercises")
                 #Get input of which exercise needs to be edited
                 to_edit = get_input("\nWhich exercise to edit: ")
@@ -151,9 +148,7 @@ def add_workout():
         while True:
             print(f"Workout name: {workout_name}")
             #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
-            print("\nExercise list:\n")
-            for exercise in exercises:
-                print(f"{exercise["name"]} ({exercise["group"]})")
+            display_exercises()
             print("\nEnter 'stop' to stop adding exercises")
             #Get user input for exercise name, reps and sets then add to workout
             try:
@@ -208,6 +203,12 @@ def get_input(prompt):
     if response=="stop":
         raise UserExit
     return response
+
+def display_exercises():
+    #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked***
+    print("\nExercise list:\n")
+    for exercise in exercises:
+        print(f"{exercise["name"]} ({exercise["group"]})")
 
 
 if __name__ == "__main__":
