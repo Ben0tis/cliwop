@@ -3,6 +3,9 @@ import os, platform
 import json
 from tabulate import tabulate
 from pyfiglet import Figlet
+from colorama import Fore, Style, init
+
+init(autoreset=True)
 
 class UserExit(BaseException):
     pass
@@ -64,14 +67,14 @@ def get_choice():
         [1, "Add an exercise"], [2, "Edit an exercise"], [3, "Remove an exercise"], 
         [4, "Add a workout"], [5, "View workouts"], [6, "Remove workouts"], [7, "Exit CLIWOP"]
         ]
-    print("\nWelcome to")
-    print(title("CLIWOP"), end ="")
+    print(Fore.BLUE + "\nWelcome to")
+    title("CLIWOP")
     print("Please choose an action\n")
     print(tabulate(table, tablefmt="double_grid"))
     return int(get_input("\nChoice: "))
 
 def add_exercise():
-    print(title("Create exercises\n"))
+    title("Create exercises\n")
     #Add a new exercise to the list, then specify the name and muscle group
     exercise_name = get_input("Exercise name: ")
     exercise_group = get_input("Muscle group worked: ")
@@ -94,7 +97,7 @@ def edit_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
-                print(title("Edit exercises\n"))
+                title("Edit exercises\n")
                 display_exercises()
                 print("\nEnter 'stop' to stop editing exercises")
                 #Get input of which exercise needs to be edited
@@ -142,7 +145,7 @@ def remove_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
-                print(title("Remove exercises\n"))
+                title("Remove exercises\n")
                 display_exercises()
                 print("\nEnter 'stop' to stop deleting exercises")
                 #Get input of which exercise needs to be deleted
@@ -169,7 +172,7 @@ def add_workout():
     if not exercises:
         print("Please add exercises before creating a workout")
     else:
-        print(title("Create workouts\n"))
+        title("Create workouts\n")
         workout_name = input("Name of the workout: ")
         workout = []
         clear_terminal()
@@ -210,7 +213,7 @@ def view_workout():
         #Loop until user inputs "stop"
         while True:
             try:
-                print(title("View workouts\n"))
+                title("View workouts\n")
                 display_workouts()
                 print("\nEnter 'stop' to stop viewing workouts")
                 #Get input of which exercise needs to be edited
@@ -248,7 +251,7 @@ def remove_workout():
         #Loop until user inputs "stop"
         while True:
             try:
-                print(title("Remove workouts\n"))
+                title("Remove workouts\n")
                 display_workouts()
                 print("\nEnter 'stop' to stop deleting workouts")
                 #Get input of which workout needs to be deleted
@@ -314,7 +317,8 @@ def display_workouts():
 
 def title(text):
     f = Figlet(font="standard")
-    return(f.renderText(text))
+    titled = (f.renderText(text))
+    print(Fore.BLUE + titled, end="")
 
 if __name__ == "__main__":
     main()
