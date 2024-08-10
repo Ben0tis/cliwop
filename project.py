@@ -61,7 +61,7 @@ def get_choice():
     #Display list of actions, then ask for a choice from the user
     print("\nWelcome to CLIWOP - Please choose an action\n")
     print("1. Add an exercise")
-    print("2. Edit and exercise")
+    print("2. Edit an exercise")
     print("3. Remove an exercise")
     print("4. Add a workout")
     print("5. View workouts")
