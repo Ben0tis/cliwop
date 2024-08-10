@@ -30,8 +30,7 @@ def main():
                     add_exercise()
                 case 2:
                     clear_terminal()
-                    #placeholder output
-                    print("Edit exercise")
+                    edit_exercise()
                 case 3:
                     clear_terminal()
                     #placeholder output
@@ -84,7 +83,37 @@ def add_exercise():
 
 def edit_exercise():
     #Edit an existing exercise in the list
-    ...
+    if not exercises:
+        print("Please add exercises before trying to edit the list")
+    else:
+        while True:
+            print("Exercise list:\n")
+            for exercise in exercises:
+                print(f"{exercise["name"]} ({exercise["group"]})")
+            to_edit = input("\nWhich exercise to edit: ")
+            if not any(exercise["name"] == to_edit for exercise in exercises):
+                clear_terminal()
+                print("Invalid exercise, please select an exercise from the list\n")
+            else:
+                what_edit = input(f"Edit the name or group for {to_edit}?: ")
+                if what_edit == "group":
+                    for exercise in exercises:
+                        if exercise["name"] == to_edit:
+                            exercise["group"] = input("New muscle group worked: ")
+                            with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
+                                json.dump(exercises, write_ex)
+                            clear_terminal()
+                elif what_edit == "name":
+                    for exercise in exercises:
+                        if exercise["name"] == to_edit:
+                            exercise["name"] = input("New name: ")
+                            with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
+                                json.dump(exercises, write_ex)
+                            clear_terminal()
+                else:
+                    clear_terminal()
+                    print("Invalid choice, please input 'name' or 'group'\n")
+                
 
 def remove_exercise():
     #Delete an existing exercise from the list
