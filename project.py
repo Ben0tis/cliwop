@@ -1,6 +1,7 @@
 import sys
 import os, platform
 import json
+from tabulate import tabulate
 
 class UserExit(BaseException):
     pass
@@ -58,14 +59,12 @@ def main():
 
 def get_choice():
     #Display list of actions, then ask for a choice from the user
+    table = [
+        [1, "Add an exercise"], [2, "Edit an exercise"], [3, "Remove an exercise"], 
+        [4, "Add a workout"], [5, "View workouts"], [6, "Remove workouts"], [7, "Exit CLIWOP"]
+        ]
     print("\nWelcome to CLIWOP - Please choose an action\n")
-    print("1. Add an exercise")
-    print("2. Edit an exercise")
-    print("3. Remove an exercise")
-    print("4. Add a workout")
-    print("5. View workouts")
-    print("6. Remove a workout")
-    print("7. Exit CLIWOP")
+    print(tabulate(table, tablefmt="double_grid"))
     return int(get_input("\nChoice: "))
 
 def add_exercise():
