@@ -53,7 +53,9 @@ def main():
                     remove_workout()
                 case 7:
                     clear_terminal()
-                    sys.exit("Thank you for using CLIWOP\n")
+                    print(Fore.BLUE + "Thank you for using")
+                    title("CLIWOP")
+                    sys.exit()
                 case _:
                     raise ValueError
         except ValueError:
@@ -296,7 +298,9 @@ def get_input(prompt):
     #Check if user input is "exit"; if yes, abort program
     elif response =="exit":
         clear_terminal()
-        sys.exit("Thank you for using CLIWOP\n")
+        print(Fore.BLUE + "Thank you for using")
+        title("CLIWOP")
+        sys.exit()
     return response
 
 def display_exercises():
