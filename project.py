@@ -200,6 +200,9 @@ def add_workout():
             #Get user input for exercise name, reps and sets then add to workout
             try:
                 workout_ex = get_input(Fore.GREEN + "\nExercise to add to workout: ")
+                # Check if the exercise is in the list of exercises
+                if not any(exercise["name"] == workout_ex for exercise in exercises):
+                    raise ValueError()
                 workout_ex_reps = get_input(Fore.GREEN + "Ammount of repitions to perform: ")
                 workout_ex_sets = get_input(Fore.GREEN + "How many sets for this exercise?: ")
                 workout_exercise = {
@@ -213,6 +216,11 @@ def add_workout():
             except UserExit:
                 clear_terminal()
                 break
+            except ValueError:
+                clear_terminal()
+                print(Fore.RED + Style.BRIGHT + "Invalid exercise\n")
+                print(Fore.RED + "Please select an exercise from the list\n")
+                pass
         #If exercises were added to workout before "stop" input, push to json
         if workout:
             workouts[workout_name] = workout

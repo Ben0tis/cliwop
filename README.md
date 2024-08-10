@@ -77,7 +77,7 @@ The **CLI Workout Planner** is a command-line application that allows users to m
 
 ## Future Enhancements
 
-- [ ]  Implement a way to check if exercise added to workout is in list
+- [x]  Implement a way to check if exercise added to workout is in list
 - [ ]  Include standard exercises and workouts
 - [ ]  Inplement a way to filter the exercises and workouts lists
 - [ ]  Implement a way to organize the lists by name or muscle group worked
