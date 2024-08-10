@@ -4,14 +4,20 @@ import json
 
 #check if json is empty
 try:
-    with open("data/exercises.json", mode="r", encoding="utf-8") as read_file:
+    with open("data/exercises.json", mode="r", encoding="utf-8") as read_ex:
         #if json is not empty, read file
-        exercises = json.load(read_file)
+        exercises = json.load(read_ex)
 #if json is empty, initialize excercises as a regular list
 except Exception:
     exercises = []
-    
-workouts = []
+
+try:
+    with open("data/workouts.json", mode="r", encoding="utf-8") as read_wo:
+        #if json is not empty, read file
+        workouts = json.load(read_wo)
+#if json is empty, initialize excercises as a regular list
+except Exception:
+    workouts = []
 
 def main():
     #ask user for an action, perform said action and loop until the program is stopped
@@ -78,8 +84,8 @@ def add_exercise():
         "group": exercise_group
     }
     exercises.append(exercise)
-    with open("data/exercises.json", mode="w", encoding="utf-8") as write_file:
-        json.dump(exercises, write_file)
+    with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
+        json.dump(exercises, write_ex)
     print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list")
 
 def edit_exercise():
@@ -105,17 +111,17 @@ def add_workout():
                 workout_exercise = input("\nExercise to add to workout: ")
                 if workout_exercise == "stop":
                     clear_terminal()
-                    break #Exit the loop when "Stop" is entered
+                    break #Exit the loop when stop" is entered
                 else:
                     workout_reps = input("Ammount of repitions to perform: ")
                     if workout_reps == "stop":
                         clear_terminal()
-                        break #Exit the loop when "Stop" is entered
+                        break #Exit the loop when "stop" is entered
                     else:
                         workout_sets = input("How many sets for this exercise?: ")
                         if workout_sets == "stop":
                             clear_terminal()
-                            break #Exit the loop when "Stop" is entered
+                            break #Exit the loop when "stop" is entered
                         else:
                             workout = {
                                 "exercise": workout_exercise,
@@ -129,6 +135,8 @@ def add_workout():
                 break
         if program:
             workouts.append(program)
+            with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
+                json.dump(workouts, write_wo)
 
 def view_workout():
     #Display the workout programs in the list, then choose one to display detailed information
