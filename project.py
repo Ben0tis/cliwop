@@ -98,7 +98,7 @@ def remove_exercise():
 
 def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
-    program = []
+    workout = []
     if not exercises:
         print("Please add exercises before creating a workout")
     else:
@@ -108,33 +108,33 @@ def add_workout():
                 print(f"{exercise["name"]} ({exercise["group"]})")
             print("\nEnter 'stop' to stop adding exercises")
             try:
-                workout_exercise = input("\nExercise to add to workout: ")
-                if workout_exercise == "stop":
+                workout_ex = input("\nExercise to add to workout: ")
+                if workout_ex == "stop":
                     clear_terminal()
                     break #Exit the loop when stop" is entered
                 else:
-                    workout_reps = input("Ammount of repitions to perform: ")
-                    if workout_reps == "stop":
+                    workout_ex_reps = input("Ammount of repitions to perform: ")
+                    if workout_ex_reps == "stop":
                         clear_terminal()
                         break #Exit the loop when "stop" is entered
                     else:
-                        workout_sets = input("How many sets for this exercise?: ")
-                        if workout_sets == "stop":
+                        workout_ex_sets = input("How many sets for this exercise?: ")
+                        if workout_ex_sets == "stop":
                             clear_terminal()
                             break #Exit the loop when "stop" is entered
                         else:
-                            workout = {
-                                "exercise": workout_exercise,
-                                "reps": workout_reps,
-                                "sets": workout_sets
+                            workout_exercise = {
+                                "exercise": workout_ex,
+                                "reps": workout_ex_reps,
+                                "sets": workout_ex_sets
                             }
-                            program.append(workout)
+                            workout.append(workout_exercise)
                             clear_terminal()
             except Exception as e:
                 print(f"An error occured: {e}")
                 break
-        if program:
-            workouts.append(program)
+        if workout:
+            workouts.append(workout)
             with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
                 json.dump(workouts, write_wo)
 
