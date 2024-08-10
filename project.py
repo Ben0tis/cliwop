@@ -289,15 +289,19 @@ def get_input(prompt):
 
 def display_exercises():
     #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked***
-    print("Exercise list:\n")
-    for exercise in exercises:
-        print(f"{exercise["name"]} ({exercise["group"]})")
+    #Prepare for tabulation
+    ex_table = [[exercise["name"], exercise["group"]] for exercise in exercises]
+    ex_headers = ["Exercise name", "Muscle Group"]
+    #Create and display table
+    print(tabulate(ex_table, ex_headers, tablefmt="double_grid"))
 
 def display_workouts():
     #Display list of workouts ***Could implement a way to filter and/org organize***
-    print("Workout list:\n")
-    for workout_name in workouts:
-        print(f"{workout_name}")
+    #Prepare for tabulation
+    wo_table = [[workout] for workout in workouts.keys()]
+    wo_headers = ["Workout name"]
+    #Create and display table
+    print(tabulate(wo_table, wo_headers, tablefmt="double_grid"))
 
 if __name__ == "__main__":
     main()
