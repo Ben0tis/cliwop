@@ -73,8 +73,8 @@ def get_choice():
 def add_exercise():
     print(title("Create exercises\n"))
     #Add a new exercise to the list, then specify the name and muscle group
-    exercise_name = input("Exercise name: ")
-    exercise_group = input("Muscle group worked: ")
+    exercise_name = get_input("Exercise name: ")
+    exercise_group = get_input("Muscle group worked: ")
     exercise = {
         "name": exercise_name,
         "group": exercise_group
