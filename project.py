@@ -36,8 +36,7 @@ def main():
                     edit_exercise()
                 case 3:
                     clear_terminal()
-                    #placeholder output
-                    print("Remove exercise")
+                    remove_exercise()
                 case 4:
                     clear_terminal()
                     add_workout()
@@ -133,7 +132,32 @@ def edit_exercise():
 
 def remove_exercise():
     #Delete an existing exercise from the list
-    ...
+    #Check if there are exercises in the list first
+    if not exercises:
+        print("Please add exercises before trying to delete one from the list")
+    else:
+        #Loop until user inputs "stop"
+        while True:
+            try:
+                display_exercises()
+                print("\nEnter 'stop' to stop deleting exercises")
+                #Get input of which exercise needs to be deleted
+                to_delete = get_input("\nWhich exercise to delete: ")
+                #If the selected exercise is not in the list, loop
+                if not any(exercise["name"] == to_delete for exercise in exercises):
+                    clear_terminal()
+                    print("Invalid exercise, please select an exercise from the list\n")
+                #If the selected exercise is in the list, continue
+                else:
+                    for exercise in exercises:
+                    #Delete the exercise that was selected above
+                        exercises[:] = [exercise for exercise in exercises if exercise["name"] != to_delete]
+                        save_exercises()
+                        clear_terminal()
+            #Exit back to main menu if user inputs "stop"
+            except UserExit:
+                clear_terminal()
+                break
 
 def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
