@@ -28,9 +28,6 @@ def main():
                 case 1:
                     clear_terminal()
                     add_exercise()
-                    # check if input worked - to remove
-                    print()
-                    print(exercises)
                 case 2:
                     clear_terminal()
                     #placeholder output
@@ -42,9 +39,6 @@ def main():
                 case 4:
                     clear_terminal()
                     add_workout()
-                    #check if input worked - to remove
-                    print()
-                    print(workouts)
                 case 5:
                     clear_terminal()
                     #placeholder output
