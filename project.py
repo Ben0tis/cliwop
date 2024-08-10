@@ -212,13 +212,19 @@ def view_workout():
                 print("\nEnter 'stop' to stop viewing workouts")
                 #Get input of which exercise needs to be edited
                 to_view = get_input("\nWhich workout to view: ")
-                #Check if input is part of the workouts list
-                if to_view in workouts:
+
+                if to_view  in workouts:
                     clear_terminal()
-                    print(f"\nYou are viewing {to_view}")
-                    #Loop over exercises in the selected workout, then display workout information with formatted string
-                    for i, exercise in enumerate(workouts[to_view]):
-                        print(f"\nExercise #{i+1}: {exercise["exercise"]} for {exercise["sets"]} sets of {exercise["reps"]} reps")
+                    print("View workouts\n")
+                    # Prepare data for tabulate
+                    workout_data = [
+                        [i + 1, exercise["exercise"], exercise["sets"], exercise["reps"]]
+                        for i, exercise in enumerate(workouts[to_view])
+                    ]
+                    headers = ["#", "Exercise", "Sets", "Reps"]
+                    
+                    # Display the workout details using tabulate
+                    print(tabulate(workout_data, headers=headers, tablefmt="double_grid"))
                         
                     check_stop = get_input("\nEnter 'stop' to stop viewing workout: ")
                 #If input not in workouts list, loop
