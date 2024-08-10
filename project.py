@@ -2,6 +2,7 @@ import sys
 import os, platform
 import json
 from tabulate import tabulate
+from pyfiglet import Figlet
 
 class UserExit(BaseException):
     pass
@@ -63,12 +64,14 @@ def get_choice():
         [1, "Add an exercise"], [2, "Edit an exercise"], [3, "Remove an exercise"], 
         [4, "Add a workout"], [5, "View workouts"], [6, "Remove workouts"], [7, "Exit CLIWOP"]
         ]
-    print("\nWelcome to CLIWOP - Please choose an action\n")
+    print("\nWelcome to")
+    print(title("CLIWOP"), end ="")
+    print("Please choose an action\n")
     print(tabulate(table, tablefmt="double_grid"))
     return int(get_input("\nChoice: "))
 
 def add_exercise():
-    print("Create exercises\n")
+    print(title("Create exercises\n"))
     #Add a new exercise to the list, then specify the name and muscle group
     exercise_name = input("Exercise name: ")
     exercise_group = input("Muscle group worked: ")
@@ -91,7 +94,7 @@ def edit_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
-                print("Edit exercises\n")
+                print(title("Edit exercises\n"))
                 display_exercises()
                 print("\nEnter 'stop' to stop editing exercises")
                 #Get input of which exercise needs to be edited
@@ -139,7 +142,7 @@ def remove_exercise():
         #Loop until user inputs "stop"
         while True:
             try:
-                print("Remove exercises\n")
+                print(title("Remove exercises\n"))
                 display_exercises()
                 print("\nEnter 'stop' to stop deleting exercises")
                 #Get input of which exercise needs to be deleted
@@ -166,7 +169,7 @@ def add_workout():
     if not exercises:
         print("Please add exercises before creating a workout")
     else:
-        print("Create workouts\n")
+        print(title("Create workouts\n"))
         workout_name = input("Name of the workout: ")
         workout = []
         clear_terminal()
@@ -207,7 +210,7 @@ def view_workout():
         #Loop until user inputs "stop"
         while True:
             try:
-                print("View workouts\n")
+                print(title("View workouts\n"))
                 display_workouts()
                 print("\nEnter 'stop' to stop viewing workouts")
                 #Get input of which exercise needs to be edited
@@ -245,7 +248,7 @@ def remove_workout():
         #Loop until user inputs "stop"
         while True:
             try:
-                print("Remove workouts\n")
+                print(title("Remove workouts\n"))
                 display_workouts()
                 print("\nEnter 'stop' to stop deleting workouts")
                 #Get input of which workout needs to be deleted
@@ -308,6 +311,10 @@ def display_workouts():
     wo_headers = ["Workout name"]
     #Create and display table
     print(tabulate(wo_table, wo_headers, tablefmt="double_grid"))
+
+def title(text):
+    f = Figlet(font="standard")
+    return(f.renderText(text))
 
 if __name__ == "__main__":
     main()
