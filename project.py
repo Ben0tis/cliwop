@@ -45,8 +45,7 @@ def main():
                     view_workout()
                 case 6:
                     clear_terminal()
-                    #placeholder output
-                    print("Remove workout")
+                    remove_workout()
                 case 7:
                     clear_terminal()
                     sys.exit("Thank you for using CLIWOP\n")
@@ -227,7 +226,31 @@ def view_workout():
 
 def remove_workout():
     #Delete a workout from the list
-    ...
+    #Check if there are workouts in the list first
+    if not workouts:
+        print("Please add workouts before trying to delete one from the list")
+    else:
+        #Loop until user inputs "stop"
+        while True:
+            try:
+                display_workouts()
+                print("\nEnter 'stop' to stop deleting workouts")
+                #Get input of which workout needs to be deleted
+                to_delete = get_input("\nWhich workout to delete: ")
+                #If the selected workout is not in the list, loop
+                if not any(workout == to_delete for workout in workouts):
+                    clear_terminal()
+                    print("Invalid workout, please select a workout from the list\n")
+                #If the selected workout is in the list, continue
+                else:
+                    #Delete the workout that was selected above
+                        del workouts[to_delete]
+                        save_workouts()
+                        clear_terminal()
+            #Exit back to main menu if user inputs "stop"
+            except UserExit:
+                clear_terminal()
+                break
 
 def clear_terminal():
     #Clear terminal using the approriate function depending on windows vs unix/macOS
