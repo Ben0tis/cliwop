@@ -3,7 +3,8 @@ import os, platform
 import json
 
 #initialise in-memory data for exercises and workouts
-exercises = []
+with open("data/exercises.json", mode="r", encoding="utf-8") as read_file:
+    exercises = json.load(read_file)
 workouts = []
 #probably a good idea to implement JSON file later down the line for persistence
 
