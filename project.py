@@ -2,11 +2,16 @@ import sys
 import os, platform
 import json
 
-#initialise in-memory data for exercises and workouts
-with open("data/exercises.json", mode="r", encoding="utf-8") as read_file:
-    exercises = json.load(read_file)
+#check if json is empty
+try:
+    with open("data/exercises.json", mode="r", encoding="utf-8") as read_file:
+        #if json is not empty, read file
+        exercises = json.load(read_file)
+#if json is empty, initialize excercises as a regular list
+except Exception:
+    exercises = []
+    
 workouts = []
-#probably a good idea to implement JSON file later down the line for persistence
 
 def main():
     #ask user for an action, perform said action and loop until the program is stopped
