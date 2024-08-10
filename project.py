@@ -23,7 +23,7 @@ except Exception:
     workouts = {}
 
 def main():
-    #ask user for an action, perform said action and loop until the program is stopped
+    #ask user for an action, perform said action and loop until the program is stopped with input = 7
     while True:
         try:
             choice = get_choice()
@@ -79,42 +79,56 @@ def add_exercise():
         "name": exercise_name,
         "group": exercise_group
     }
+    #Add input to exercise and push to json file
     exercises.append(exercise)
     save_exercises()
     print(f"\n{exercise_name} ({exercise_group} exercise) is added to the list of exercises")
 
 def edit_exercise():
     #Edit an existing exercise in the list
+    #Check if there are exercises in the list first
     if not exercises:
         print("Please add exercises before trying to edit the list")
     else:
+        #Loop until user inputs "stop"
         while True:
             try:
+                #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
                 print("Exercise list:\n")
                 for exercise in exercises:
                     print(f"{exercise["name"]} ({exercise["group"]})")
                 print("\nEnter 'stop' to stop editing exercises")
+                #Get input of which exercise needs to be edited
                 to_edit = get_input("\nWhich exercise to edit: ")
+                #If the selected exercise is not in the list, loop
                 if not any(exercise["name"] == to_edit for exercise in exercises):
                     clear_terminal()
                     print("Invalid exercise, please select an exercise from the list\n")
+                #If the selected exercise is in the list, continue
                 else:
+                    #Get input of what to edit
                     what_edit = get_input(f"Edit the name or group for {to_edit}?: ")
                     if what_edit == "group":
                         for exercise in exercises:
+                            #Only edit the exercise that was selected above
                             if exercise["name"] == to_edit:
+                                #Change group and push to json
                                 exercise["group"] = get_input("New muscle group worked: ")
                                 save_exercises()
                                 clear_terminal()
                     elif what_edit == "name":
                         for exercise in exercises:
+                            #Only edit the exercise that was selected above
                             if exercise["name"] == to_edit:
+                                #Change name and push to json
                                 exercise["name"] = get_input("New name: ")
                                 save_exercises()
                                 clear_terminal()
+                    #If input not 'name' or 'group', display error message and loop
                     else:
                         clear_terminal()
                         print("Invalid choice, please input 'name' or 'group'\n")
+            #Exit back to main menu if user inputs "stop"
             except UserExit:
                 clear_terminal()
                 break
@@ -126,18 +140,22 @@ def remove_exercise():
 
 def add_workout():
     #Add a new workout program to the list using created exercises, then specify the reps and sets
+    #Check if there are exercises in the list first ***Could implement a way to check if the exercises added to workout are in list***
     if not exercises:
         print("Please add exercises before creating a workout")
     else:
         workout_name = input("Name of the workout: ")
         workout = []
         clear_terminal()
+        #Loop until user inputs "stop"
         while True:
             print(f"Workout name: {workout_name}")
+            #Display list of exercises ***Could implement a way to filter and/or organize by muscle worked*** Could refactor into separate function***
             print("\nExercise list:\n")
             for exercise in exercises:
                 print(f"{exercise["name"]} ({exercise["group"]})")
             print("\nEnter 'stop' to stop adding exercises")
+            #Get user input for exercise name, reps and sets then add to workout
             try:
                 workout_ex = get_input("\nExercise to add to workout: ")
                 workout_ex_reps = get_input("Ammount of repitions to perform: ")
@@ -149,9 +167,11 @@ def add_workout():
                     }
                 workout.append(workout_exercise)
                 clear_terminal()
+            #Stop loop if user inputs "stop"
             except UserExit:
                 clear_terminal()
                 break
+        #If exercises were added to workout before "stop" input, push to json
         if workout:
             workouts[workout_name] = workout
             save_workouts()
@@ -173,14 +193,17 @@ def clear_terminal():
         os.system("clear")
 
 def save_exercises():
+    #Push exercises list of dicts to json file
     with open("data/exercises.json", mode="w", encoding="utf-8") as write_ex:
         json.dump(exercises, write_ex)
 
 def save_workouts():
+    #Push workouts dict of list of dicts to json file
     with open("data/workouts.json", mode="w", encoding="utf-8") as write_wo:
         json.dump(workouts, write_wo)
 
 def get_input(prompt):
+    #Check if user input is "stop"; if yes, raise UserExit
     response = input(prompt)
     if response=="stop":
         raise UserExit
