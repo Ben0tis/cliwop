@@ -316,10 +316,10 @@ def save_workouts():
 def get_input(prompt):
     #Check if user input is "stop"; if yes, raise UserExit
     response = input(prompt)
-    if response=="stop":
+    if response.lower()=="stop":
         raise UserExit
     #Check if user input is "exit"; if yes, abort program
-    elif response =="exit":
+    elif response.lower() =="exit":
         clear_terminal()
         print(Fore.GREEN + "Thank you for using")
         title("CLIWOP")
