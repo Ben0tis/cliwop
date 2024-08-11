@@ -2,7 +2,7 @@
 #### By: Benjamin Desmeules Otis
 #### GitHub and EdX: Ben0tis
 #### From: Quebec, Canada
-#### Video Demo (Recorded on XXXX-XX-XX): ==TO DO==
+#### Video Demo (Recorded on 2024-08-11): https://youtu.be/iHybnR14WYM
 
 ## Project Overview
 
